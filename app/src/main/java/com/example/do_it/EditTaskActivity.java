@@ -53,9 +53,14 @@ public class EditTaskActivity extends AppCompatActivity {
         // Récupérer les données de la tâche à partir de la base de données
         Cursor cursor = dbHelper.getTaskById(taskId);
         if (cursor != null && cursor.moveToFirst()) {
-            String task = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_TASK));
-            editTextTask.setText(task);
-            cursor.close();
+            int colIndex = cursor.getColumnIndex(DatabaseHelper.COLUMN_TASK) ;
+
+            if (colIndex >= 0 )
+            {
+                String task = cursor.getString(colIndex);
+                editTextTask.setText(task);
+                cursor.close();
+            }
         }
     }
 }
