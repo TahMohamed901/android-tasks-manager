@@ -14,7 +14,7 @@ import java.util.List;
 public class TaskAdapter extends ArrayAdapter<Task> {
     private Context context;
     private List<Task> tasks;
-
+    private String a;
     public TaskAdapter(Context context, List<Task> tasks) {
         super(context, 0, tasks);
         this.context = context;
