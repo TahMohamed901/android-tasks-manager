@@ -7,8 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
-    private static final String DATABASE_NAME = "tasks.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final String DATABASE_NAME = "tasks_management.db";
+    private static final int DATABASE_VERSION = 2;
 
     // Table tasks
     public static final String TABLE_TASKS = "tasks";
@@ -68,5 +68,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public Cursor getAllTasks() {
         SQLiteDatabase db = this.getReadableDatabase();
         return db.query(TABLE_TASKS, null, null, null, null, null, null);
+    }
+    // Récupérer les tâches terminées (status = 1)
+    public Cursor getCompletedTasks() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.query(TABLE_TASKS, null, COLUMN_STATUS + " = ?", new String[]{"1"},
+                null, null, null);
+    }
+
+    // Récupérer les tâches non terminées (status = 0)
+    public Cursor getIncompleteTasks() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.query(TABLE_TASKS, null, COLUMN_STATUS + " = ?", new String[]{"0"},
+                null, null, null);
     }
 }
